@@ -15,7 +15,9 @@ class Tests {
         unitAssertSquare(" with positive elements", mutableListOf(1, 4, 9, 16), mutableListOf(1, 2, 3, 4))
         unitAssertSquare(" with 1 element", mutableListOf(625), mutableListOf(25))
         unitAssertSquare(" with negative elements", mutableListOf(0, 4, 6084), mutableListOf(0, -2, -78))
-        unitAssertSquare(" with max and min value", mutableListOf(1, 0), mutableListOf(Int.MAX_VALUE, Int.MIN_VALUE))
+        unitAssertSquare(" with max and min value", mutableListOf(0, 0), mutableListOf(Int.MAX_VALUE, Int.MIN_VALUE))
+        unitAssertSquare(" with values whose square is greater than INT", mutableListOf(0, 0), mutableListOf(50000, -72580))
+        unitAssertSquare(" without elements", mutableListOf(), mutableListOf())
     }
 
     private fun assertCompareTypes(msg : String, exp : String, act : Any?) {
@@ -24,8 +26,9 @@ class Tests {
 
     @Test
     fun testCompareTypes() {
-        val test1 = "Privet"
-        assertCompareTypes("String","Я получил String = '$test1', eё длина равна 6", test1)
+        val test1 = "Privet Andrey"
+        assertCompareTypes("String","Я получил String = '$test1', eё длина равна 13", test1)
+        assertCompareTypes("String","Я получил String = '', eё длина равна 0", "")
         var test2 = Int.MAX_VALUE
         assertCompareTypes("Int", "Я получил Int = $test2, его квадрат не входит в диапазон INT", test2)
         test2 = Int.MIN_VALUE
@@ -35,6 +38,7 @@ class Tests {
         assertCompareTypes("Int", "Я получил Int = -5, его квадрат равен 25", -5)
         assertCompareTypes("Double", "Я получил Double = 423.0, это число округляется до 423", 423.0)
         assertCompareTypes("Double", "Я получил Double = 423.435, это число округляется до 423,44", 423.435)
+        assertCompareTypes("Double", "Я получил Double = 423.432, это число округляется до 423,43", 423.432)
         assertCompareTypes("null", "Объект равен null", null)
         assertCompareTypes("Float", "Мне этот тип неизвестен", 43.2f)
         var date = LocalDate.of(2006,12,24)
@@ -81,6 +85,7 @@ class Tests {
         assertNumberToText("1 to 9", "девять", 9)
         assertNumberToText("10 to 19", "десять", 10)
         assertNumberToText("10 to 19", "одиннадцать", 11)
+        assertNumberToText("10 to 19", "пятнадцать", 15)
         assertNumberToText("10 to 19", "девятнадцать", 19)
         assertNumberToText("20 to 99", "двадцать", 20)
         assertNumberToText("20 to 99", "сорок три", 43)
